@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var wordViewModel: WordViewModel
 
-    private val newWOrdActivityLauncher = registerForActivityResult(
+    private val newWordActivityLauncher = registerForActivityResult(
         NewWordActivity.NewWordActivityResultContract,
         newWordActivityResultCallback()
     )
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         deleteOnSwipeItemTouchHelper(adapter).attachToRecyclerView(binding.recyclerView)
 
-        binding.fab.setOnClickListener { newWOrdActivityLauncher.launch(null) }
+        binding.fab.setOnClickListener { newWordActivityLauncher.launch(null) }
 
         wordViewModel = ViewModelProvider(this)[WordViewModel::class.java]
         wordViewModel.allWords.observe(this) { adapter.words = it }
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun wordClickedListener() = object : WordListAdapter.ClickListener {
         override fun onWordClicked(word: Word) {
-            newWOrdActivityLauncher.launch(word)
+            newWordActivityLauncher.launch(word)
         }
     }
 
